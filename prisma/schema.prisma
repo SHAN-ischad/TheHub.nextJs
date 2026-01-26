@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../client/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Pessoa{
+  Id String @id @default(cuid())
+  Nome String 
+  Idade Int
+  DataNasc DateTime
+  Telefone String @unique
+  Cartoes Cartao[]
+  User User?
+}
+
+model User{
+  Id String @id @default(cuid())
+  PessoaId String @unique
+  Pessoa Pessoa @relation(fields: [PessoaId], references: [Id], onDelete: Cascade)
+  Pagamentos Pagamentos[]
+  Planos UserPlanos[]
+  
+  @@index([PessoaId])
+}
+
+model Cartao{
+  Id String @id @default(cuid())
+  Banco String
+  PessoaId String
+  Pessoa Pessoa @relation(fields: [PessoaId], references: [Id], onDelete: Cascade)
+  
+  @@index([PessoaId])
+}
+
+model Pagamentos{
+  Id String @id @default(cuid())
+  idPagamento String
+  TipoPagamento String
+  Banco String
+  DataPagamento DateTime
+  UserId String
+  User User @relation(fields: [UserId], references: [Id], onDelete: Cascade)
+  PlanoId String
+  Plano Planos @relation(fields: [PlanoId], references: [Id], onDelete: Cascade)
+  
+  @@index([UserId])
+  @@index([PlanoId])
+}
+
+model Planos{
+  Id String @id @default(cuid())
+  ValorPlano Float
+  Funcionalidades String
+  Descricao String
+  Pagamentos Pagamentos[]
+  Users UserPlanos[]
+}
+
+model UserPlanos{
+  UserId String
+  PlanoId String
+  Ativo Boolean @default(false)
+  User User @relation(fields: [UserId], references: [Id], onDelete: Cascade)
+  Plano Planos @relation(fields: [PlanoId], references: [Id], onDelete: Cascade)
+  
+  @@id([UserId, PlanoId])
+  @@index([PlanoId])
+}
