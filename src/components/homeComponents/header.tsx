@@ -9,8 +9,8 @@ export const HomeHeader = () => {
 
 
     return (
-        <header className="w-full flex justify-center  absolute top-1 z-10">
-            <div className="flex items-center justify-between p-1 rounded-xl shadow-md bg-[#ffffff] w-[90%] max-w-[1200px]">
+        <header className="w-full flex justify-center  absolute mt-[5%]">
+            <div className="flex items-center justify-between p-1 rounded-xl shadow-md bg-[#ffffff] w-[90%] pr-[20px] max-w-[1200px]">
                 {/* Logo */}
                 <div className="shrink-0">
                     <Image src={"/thehubPurple.png"} alt={"Logo The hub"} width={80} height={80} className="" />
@@ -32,7 +32,7 @@ export const HomeHeader = () => {
                 </nav>
 
                 {/* Mobile Menu Button and Dropdown */}
-                <div className="md:hidden relative flex items-center">
+                <div className="md:hidden relative flex z-20 inset-0 items-center">
                     <button className="cursor-pointer" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
                         <Menu size={24} />
                     </button>
