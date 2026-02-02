@@ -1,6 +1,9 @@
 # Oráculo IA — The Hub
 
+<div align="center">
+   
 ![The Hub](./public/thehubPurple.png)
+</div>
 
 Badges:  
 [build status] [license: MIT]
