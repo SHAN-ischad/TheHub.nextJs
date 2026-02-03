@@ -2,6 +2,18 @@
 import { ChevronRight, Menu, X } from "lucide-react"
 import Image from "next/image";
 import { useState } from "react"
+import { Cal_Sans } from "next/font/google"
+
+
+
+const calSans = Cal_Sans({
+    subsets: ['latin'],
+    weight: ['400'],
+    variable: '--font-inter', // Opcional: para usar com Tailwind
+});
+
+
+
 
 export const HomeHeader = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -9,8 +21,8 @@ export const HomeHeader = () => {
 
 
     return (
-        <header className="w-full flex justify-center  absolute mt-[5%]">
-            <div className="flex items-center justify-between p-1 rounded-xl shadow-md bg-[#ffffff] w-[90%] pr-[20px] max-w-[1200px]">
+        <header className="w-full fixed z-50 flex justify-center  mt-[5%]">
+            <div className="flex items-center justify-between p-1 rounded-xl shadow-md bg-white/20 backdrop-blur-md border border-white/10 w-[90%] pr-[20px] max-w-[1200px]">
                 {/* Logo */}
                 <div className="shrink-0">
                     <Image src={"/thehubPurple.png"} alt={"Logo The hub"} width={80} height={80} className="" />
@@ -18,35 +30,35 @@ export const HomeHeader = () => {
 
                 {/* Navigation Links for larger screens */}
                 <nav className="hidden md:flex grow justify-center space-x-8 ">
-                    <a href="#" className=" hover:text-purple-500 duration-200 flex items-center">
+                    <a href="#" className={`${calSans.className} hover:text-purple-500 duration-200 flex items-center`}>
                         Sobre Nós <span className="ml-1 text-xs">{/* &#9662; */}</span>
                     </a>
 
-                    <a href="#" className=" hover:text-purple-500 duration-200 flex items-center">
+                    <a href="#" className={`${calSans.className} hover:text-purple-500 duration-200 flex items-center`}>
                         Tecnologias <span className="ml-1 text-xs">{/* &#9662; */}</span>
                     </a>
 
-                    <a href="#" className=" hover:text-purple-500 duration-200 flex items-center">
+                    <a href="#" className={`${calSans.className} hover:text-purple-500 duration-200 flex items-center`}>
                         Pagamentos <span className="ml-1 text-xs">{/* &#9662; */}</span>
                     </a>
                 </nav>
 
                 {/* Mobile Menu Button and Dropdown */}
                 <div className="md:hidden relative flex z-20 inset-0 items-center">
-                    <button className="cursor-pointer" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                    <button className={`cursor-pointer duration-200`} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
                         <Menu size={24} />
                     </button>
                     {/* Mobile Dropdown Menu */}
                     {isMobileMenuOpen && (
-                        <div className="absolute top-full left-0 mt-2 p-4 rounded-xl shadow-md bg-[#ffffff] w-48">
+                        <div className="absolute top-full left-0 mt-2 p-4 rounded-xl shadow-md bg-[#ffffff] w-48 dropdown-animate">
                             <nav className="flex flex-col space-y-2">
-                                <a href="#" className="hover:text-purple-500 duration-200" onClick={() => setIsMobileMenuOpen(false)}>
+                                <a href="#" className={`${calSans.className} hover:text-purple-500 duration-200`} onClick={() => setIsMobileMenuOpen(false)}>
                                     Sobre Nós
                                 </a>
-                                <a href="#" className="hover:text-purple-500 duration-200" onClick={() => setIsMobileMenuOpen(false)}>
+                                <a href="#" className={`${calSans.className} hover:text-purple-500 duration-200`} onClick={() => setIsMobileMenuOpen(false)}>
                                     Tecnologias
                                 </a>
-                                <a href="#" className="hover:text-purple-500 duration-200" onClick={() => setIsMobileMenuOpen(false)}>
+                                <a href="#" className={`${calSans.className} hover:text-purple-500 duration-200`} onClick={() => setIsMobileMenuOpen(false)}>
                                     Pagamentos
                                 </a>
                             </nav>

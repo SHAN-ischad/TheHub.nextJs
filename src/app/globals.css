@@ -125,3 +125,43 @@
     background-color: #403c3b;
   }
 }
+
+/* Underline animation for cards */
+.card-underline {
+  position: relative;
+  overflow: hidden;
+}
+.card-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  width: 0;
+  background: linear-gradient(90deg, #8b5cf6, #7c3aed);
+  transition: width 400ms ease;
+  border-radius: 4px 4px 0 0;
+}
+.card-underline.active-card::after {
+  width: 100%;
+}
+.carousel-item-btn:focus .card-underline::after {
+  width: 100%;
+}
+
+/* Dropdown animation for mobile menu */
+.dropdown-animate {
+  transform-origin: top center;
+  animation: dropdownIn 300ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes dropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
