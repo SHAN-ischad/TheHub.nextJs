@@ -1,36 +1,177 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+![The Hub](./public/thehubPurple.png)
 
-First, run the development server:
+# 🔮 Oráculo IA — The Hub
+
+### *Plataforma Frontend para Assistente Inteligente com IA*
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Next.js](https://img.shields.io/badge/Next.js-16.1.4-black?logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.2.3-blue?logo=react)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)](https://www.typescriptlang.org/)
+
+[📦 Repositório](https://github.com/SHAN-ischad/TheHub.nextJs)
+
+</div>
+
+---
+
+## 📋 Sobre o Projeto
+
+**Oráculo IA (The Hub)** é uma plataforma frontend moderna construída com Next.js 16, projetada para ser a interface de interação com assistentes inteligentes alimentados por LLMs. O projeto oferece uma landing page com efeitos visuais 3D e está estruturado para futuras integrações com backends de IA.
+
+---
+
+## 🛠️ Stack Tecnológico
+
+- **Next.js** 16.1.4 — Framework React com App Router
+- **React** 19.2.3 — Biblioteca UI
+- **TypeScript** — Tipagem estática
+- **Tailwind CSS** v4 — Estilização
+- **Prisma** — ORM (preparado para PostgreSQL)
+- **Three.js** — Renderização 3D
+- **@shadergradient/react** — Gradientes animados
+- **Lucide React** — Ícones
+
+---
+
+## 🚀 Instalação Rápida
 
 ```bash
+# Clone o repositório
+git clone https://github.com/SHAN-ischad/TheHub.nextJs.git
+cd TheHub.nextJs
+
+# Instale as dependências
+npm install
+
+# Configure as variáveis de ambiente
+cp .env.example .env.local
+
+# Inicie o servidor de desenvolvimento
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse em: [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ⚙️ Variáveis de Ambiente
 
-## Learn More
+Crie um arquivo `.env.local` na raiz:
 
-To learn more about Next.js, take a look at the following resources:
+```env
+# Aplicação
+NODE_ENV=development
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+NEXT_PUBLIC_APP_NAME="Oráculo IA - The Hub"
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Database (PostgreSQL)
+DATABASE_URL="postgresql://user:password@localhost:5432/oraculo_db"
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# OpenAI (quando integrado)
+OPENAI_API_KEY=sk-proj-xxxxx
+OPENAI_MODEL=gpt-4o-mini
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📜 Scripts Disponíveis
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Comando | Descrição |
+|---------|-----------|
+| `npm run dev` | Inicia servidor de desenvolvimento |
+| `npm run build` | Cria build de produção |
+| `npm run start` | Inicia servidor de produção |
+| `npm run lint` | Executa ESLint |
+
+---
+
+## 📁 Estrutura do Projeto
+
+```
+TheHub.nextJs/
+├── public/              # Assets estáticos
+├── src/
+│   ├── app/            # Next.js App Router
+│   │   ├── page.tsx    # Página principal
+│   │   └── layout.tsx  # Layout raiz
+│   ├── components/     # Componentes React
+│   └── lib/            # Utilitários
+├── prisma/             # Schema do banco
+├── next.config.ts      # Config Next.js
+├── tailwind.config.ts  # Config Tailwind
+└── package.json
+```
+
+---
+
+## 🐳 Docker (Opcional)
+
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+```bash
+docker build -t thehub-nextjs .
+docker run -p 3000:3000 thehub-nextjs
+```
+
+---
+
+## 🚢 Deploy
+
+### Vercel (Recomendado)
+
+1. Conecte seu repositório em [vercel.com](https://vercel.com)
+2. Configure as variáveis de ambiente
+3. Deploy automático a cada push
+
+### Outras Opções
+
+- **Netlify**
+- **Railway**
+- **AWS Amplify**
+
+---
+
+## 🤝 Contribuindo
+
+1. Fork o projeto
+2. Crie sua branch (`git checkout -b feature/NovaFeature`)
+3. Commit suas mudanças (`git commit -m 'feat: Adiciona NovaFeature'`)
+4. Push para a branch (`git push origin feature/NovaFeature`)
+5. Abra um Pull Request
+
+---
+
+## 📄 Licença
+
+Este projeto está sob a licença **MIT**. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+---
+
+## 👥 Contato
+
+**SHAN-ischad**
+
+- GitHub: [@SHAN-ischad](https://github.com/SHAN-ischad)
+- Repositório: [TheHub.nextJs](https://github.com/SHAN-ischad/TheHub.nextJs)
+
+---
+
+<div align="center">
+
+**Feito com ❤️ usando Next.js**
+
+[⬆ Voltar ao topo](#-oráculo-ia--the-hub)
+
+</div>
