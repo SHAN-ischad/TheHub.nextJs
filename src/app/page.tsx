@@ -19,10 +19,10 @@ import { useEffect, useState } from "react"
 
 const tecnologias = [
   { nome: "Next.js", icon: "/next.svg", id: 1 },
-  { nome: "React", icon: "/react.svg", id: 2 },
-  { nome: "Tailwind CSS", icon: "/tailwind.svg", id: 3 },
-  { nome: "TypeScript", icon: "/typescript.svg", id: 4 },
-  { nome: "Node.js", icon: "/node.svg", id: 5 },
+  { nome: "React", icon: "/React.svg", id: 2 },
+  { nome: "Tailwind CSS", icon: "/Tailwind.svg", id: 3 },
+  { nome: "TypeScript", icon: "/Typescript.svg", id: 4 },
+  { nome: "Node.js", icon: "/nodejs.svg", id: 5 },
 ]
 
 const bungee = Bungee({
@@ -159,12 +159,12 @@ export default function Page() {
 
         <section className="w-screen mt-[20%] flex justify-center">
 
-          <div className="w-full  rounded-md p-[50px] min-h-[350px] mb-[5%] gap-[60px] max-h-fit flex flex-row-reverse items-center">
+          <div className="w-full rounded-md p-[50px] min-h-[350px] mb-[5%] gap-[60px] max-h-fit flex flex-row-reverse items-center justify-center">
 
 
             {/*Description/ Right Content  */}
 
-            <div className="w-full h-full shadow-md flex flex-col rounded-md gap-[10px] bg-white p-[20px] ">
+            <div className="w-[30%] h-full shadow-md flex flex-col rounded-md gap-[10px] bg-white p-[20px] ">
               {/* Top Text */}
               <h1 className={`${bungee.className} text-2xl`}>As Tecnologias que usamos</h1>
 
@@ -197,7 +197,7 @@ export default function Page() {
                     className="carousel-item-btn basis-1/2 pl-1 lg:basis-1/3 cursor-pointer focus:outline-none"
                   >
                     <div className="p-1">
-                      <Card className={`bg-[#232120] relative card-underline ${tecnologias[index]?.id === slide ? "active-card" : ""}`}>
+                      <Card className={`bg-white shadow-md relative card-underline ${tecnologias[index]?.id === slide ? "active-card" : ""}`}>
                         <CardContent className="flex aspect-square items-center justify-center p-6 ">
                           <Image
                             src={tech.icon}
