@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { HomeHeader } from "../components/homeComponents/header"
 import { ChevronRight } from "lucide-react"
-import { Bungee, Google_Sans_Code, Cal_Sans } from "next/font/google"
+import { Bungee, Cal_Sans } from "next/font/google"
 import {
   Carousel,
   CarouselApi,
@@ -31,11 +31,6 @@ const bungee = Bungee({
   variable: '--font-inter', // Opcional: para usar com Tailwind
 });
 
-const google = Google_Sans_Code({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-inter', // Opcional: para usar com Tailwind
-});
 
 const calSans = Cal_Sans({
   subsets: ['latin'],
@@ -77,7 +72,7 @@ export default function Page() {
   }, [api])
 
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden bg-[#403C3B]">
+    <main className="relative min-h-screen w-full overflow-x-hidden ">
       {/* Background Shader Gradient – página inteira (fixed, atrás de tudo) */}
       <ShaderGradientWrapper
         className="fixed inset-0 z-0"
@@ -111,7 +106,6 @@ export default function Page() {
             <div className="w-1/2 h-full flex justify-center  ">
               <div className="flex flex-row gap-[30px] h-[200px] ">
 
-                <Separator orientation="vertical" className=" max-h-fit min-h-[300px] " />
                 <Image width={200} height={200} alt="" src={"/thehubPurple.png"} />
               </div>
             </div>
