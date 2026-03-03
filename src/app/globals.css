@@ -122,7 +122,7 @@
   html,
   body {
     @apply text-foreground;
-    background-color: #403c3b;
+    background-color: transparent;
   }
 }
 

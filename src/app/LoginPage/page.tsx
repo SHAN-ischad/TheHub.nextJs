@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/src/components/ui/button";
+import { ShaderGradientWrapper } from "@/src/components/ui/shader-gradient-Login-Page";
 import { EyeOff, LockKeyhole, Mail } from "lucide-react";
 import { Bungee, Cal_Sans } from "next/font/google";
 import Image from "next/image";
@@ -23,15 +24,23 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <main className="w-screen h-screen ">
+    <main className="w-screen h-screen relative">
+      {/* ShaderGradient */}
+      <ShaderGradientWrapper />
+
       {/* Section Main(PC Screen) */}
-      <section className="w-screen h-full flex flex-row justify-center items-center max-lg:hidden ">
+      <section className="w-screen h-full z-10 flex flex-row justify-center items-center max-lg:hidden ">
         {/* LeftSide( Text And animation side) */}
         <div className="w-full h-full flex flex-col p-12.5 gap-[5%]">
-          <h1 className={`${bungee.className} text-2xl text-white `}>
+          <h1 className={`${bungee.className} text-[20pt] text-white `}>
             Bem Vindo.
             <br />
-            Faça seu login
+            Ao
+            <span
+              className={`${callSans.className} text-[33pt] ml-10 text-black`}
+            >
+              The Hub
+            </span>
           </h1>
         </div>
 
@@ -123,7 +132,7 @@ export default function LoginPage() {
       </section>
 
       {/* Section Main(Mobile Screen) */}
-      <section className="lg:hidden overflow-hidden max-lg:block w-screen h-screen">
+      <section className="lg:hidden z-10 overflow-hidden max-lg:block w-screen h-screen">
         <div className="w-full h-full flex  items-center bg-white ">
           {/* form Div */}
           <div className="h-full w-full flex flex-col items-center">
