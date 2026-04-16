@@ -9,7 +9,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/src/components/ui/carousel";
-import { ShaderGradientWrapper } from "@/src/components/ui/shader-gradient";
+import { useInViewAnimation } from "@/src/hooks/useInViewAnimation";
+import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { Bungee, Cal_Sans } from "next/font/google";
 import Image from "next/image";
@@ -48,6 +49,10 @@ export default function Page() {
   const [api, setApi] = useState<CarouselApi | undefined>();
   const [slide, setSlide] = useState<number>(1);
 
+  const presentationRef = useInViewAnimation({ threshold: 0.2 });
+  const aboutUsRef = useInViewAnimation({ threshold: 0.2 });
+  const technologiesRef = useInViewAnimation({ threshold: 0.2 });
+
   useEffect(() => {
     if (!api) return;
 
@@ -65,24 +70,33 @@ export default function Page() {
   }, [api]);
 
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden  ">
-      {/* Background Shader Gradient – página inteira (fixed, atrás de tudo) */}
-      <ShaderGradientWrapper
-        className="fixed inset-0 z-0"
-        style={{
-          width: "100vw",
-          height: "100vh",
-          minWidth: "100vw",
-          minHeight: "100vh",
-        }}
-      />
+    <main className=" bg-[#403C3B] min-h-screen w-full overflow-hidden  ">
       <HomeHeader />
-      <div className="relative  min-h-screen ">
+      <div className="  min-h-screen ">
         {/* Apresentação/Presentation */}
-        <section className="w-screen min-h-75  flex justify-center max-h-fit max-md:mt-[20%] mt-[25%]    ">
+        <motion.section
+          ref={presentationRef.ref}
+          initial={{ opacity: 0, y: 50 }}
+          animate={
+            presentationRef.isInView
+              ? { opacity: 1, y: 0 }
+              : { opacity: 0, y: 50 }
+          }
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="w-screen min-h-75  flex justify-center max-h-fit max-md:mt-[10%] mt-[15%]"
+        >
           <div className=" justify-center w-[90%] rounded-md  flex flex-row min-h-full max-h-fit    ">
             {/*Text/ Left Content  */}
-            <div className="flex w-[40%]  rounded-md p-2.5 gap-3.5 flex-col h-full justify-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={
+                presentationRef.isInView
+                  ? { opacity: 1, x: 0 }
+                  : { opacity: 0, x: -50 }
+              }
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="flex w-[40%]  rounded-md p-2.5 gap-3.5 flex-col h-full justify-center"
+            >
               {/* Top Text */}
               <h1 className={`${bungee.className} text-purple-500 text-[18pt]`}>
                 Bem vindo ao The hub
@@ -94,11 +108,20 @@ export default function Page() {
                 debitis maxime ipsum at ullam nobis, error aspernatur rerum
                 mollitia ea? Tempora, quidem.
               </span>
-            </div>
+            </motion.div>
 
             {/* image Right Content */}
-            <div className="w-1/2 h-full flex justify-center  ">
-              <div className="flex flex-row gap-[30px] h-[200px] ">
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={
+                presentationRef.isInView
+                  ? { opacity: 1, x: 0 }
+                  : { opacity: 0, x: 50 }
+              }
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="w-1/2 h-full flex justify-center  "
+            >
+              <div className="flex flex-row gap-7.5 h-50 ">
                 <Image
                   width={200}
                   height={200}
@@ -106,15 +129,32 @@ export default function Page() {
                   src={"/thehubPurple.png"}
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
-        </section>
+        </motion.section>
 
         {/* Sobre Nós/ About Us */}
-        <section className="relative w-screen py-[120px] rounded-md flex justify-center min-h-[300px] max-h-fit mt-[20%]">
-          <div className="relative z-10 w-[90%] p-[50px] flex flex-row rounded-md">
+        <motion.section
+          ref={aboutUsRef.ref}
+          initial={{ opacity: 0, y: 50 }}
+          animate={
+            aboutUsRef.isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }
+          }
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="relative w-screen py-30 rounded-md flex justify-center min-h-75 max-h-fit mt-[20%]"
+        >
+          <div className="relative z-10 w-[90%] p-12.5 flex flex-row rounded-md">
             {/* text */}
-            <div className="flex-col w-1/2 gap-2.5 h-full justify-center ">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={
+                aboutUsRef.isInView
+                  ? { opacity: 1, x: 0 }
+                  : { opacity: 0, x: -50 }
+              }
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="flex-col w-1/2 gap-2.5 h-full justify-center "
+            >
               <h1
                 className={`${bungee.className} text-xl text-white text-center font-bold`}
               >
@@ -126,9 +166,16 @@ export default function Page() {
                 objetivo de aumentar a eficiência operacional, reduzir riscos e
                 sustentar o crescimento dos negócios.
               </h1>
-              <div className="flex w-full justify-center mt-[20px]">
-                <button
-                  className={`${calSans.className} p-[10px] w-[50%] justify-center flex relative overflow-hidden
+              <div className="flex w-full justify-center mt-5">
+                <motion.button
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={
+                    aboutUsRef.isInView
+                      ? { opacity: 1, scale: 1 }
+                      : { opacity: 0, scale: 0.9 }
+                  }
+                  transition={{ duration: 0.4, delay: 0.4 }}
+                  className={`${calSans.className} p-2.5 w-[50%] justify-center flex relative overflow-hidden
                 rounded-2xl group/testeButton shadow-md bg-white hover:cursor-pointer
                 before:content-[''] before:absolute before:inset-0 before:bg-black before:transform
                 before:scale-x-0 before:origin-left before:transition-transform before:duration-500 before:ease-in-out
@@ -138,29 +185,57 @@ export default function Page() {
                     Faça o Teste{" "}
                     <ChevronRight className="group-hover/testeButton:text-white duration-700" />
                   </span>
-                </button>
+                </motion.button>
               </div>
-            </div>
+            </motion.div>
 
             {/* Image */}
-            <div className="w-1/2 h-full flex justify-center items-center ">
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={
+                aboutUsRef.isInView
+                  ? { opacity: 1, x: 0 }
+                  : { opacity: 0, x: 50 }
+              }
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="w-1/2 h-full flex justify-center items-center "
+            >
               <Image
                 src={"/thehubPurple.png"}
                 alt={""}
                 height={200}
                 width={200}
               />
-            </div>
+            </motion.div>
           </div>
-        </section>
+        </motion.section>
 
         {/* Tecnologias/Technologies - icons + description */}
 
-        <section className="w-screen mt-[20%] flex justify-center">
-          <div className="w-full rounded-md p-[50px] min-h-[350px] mb-[5%] gap-[60px] max-h-fit flex flex-row-reverse items-center justify-center">
+        <motion.section
+          ref={technologiesRef.ref}
+          initial={{ opacity: 0, y: 50 }}
+          animate={
+            technologiesRef.isInView
+              ? { opacity: 1, y: 0 }
+              : { opacity: 0, y: 50 }
+          }
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="w-screen mt-[20%] flex justify-center"
+        >
+          <div className="w-full rounded-md p-12.5 min-h-87.5 mb-[5%] gap-15 max-h-fit flex flex-row-reverse items-center justify-center">
             {/*Description/ Right Content  */}
 
-            <div className="w-[30%] h-full shadow-md flex flex-col rounded-md gap-[10px] bg-white p-[20px] ">
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={
+                technologiesRef.isInView
+                  ? { opacity: 1, x: 0 }
+                  : { opacity: 0, x: 50 }
+              }
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="w-[30%] h-full shadow-md flex flex-col rounded-md gap-2.5 bg-white p-5 "
+            >
               {/* Top Text */}
               <h1 className={`${bungee.className} text-2xl`}>
                 As Tecnologias que usamos
@@ -169,55 +244,65 @@ export default function Page() {
               <span className={`${calSans.className} text-sm`}>
                 {descricoes[slide] || "Error"}
               </span>
-            </div>
+            </motion.div>
 
             {/* Carousel/ Left Content */}
-            <Carousel
-              setApi={setApi}
-              className="w-full max-w-48 sm:max-w-xs md:max-w-sm lg:max-w-2xl"
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={
+                technologiesRef.isInView
+                  ? { opacity: 1, x: 0 }
+                  : { opacity: 0, x: -50 }
+              }
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <CarouselContent className="-ml-1">
-                {tecnologias.map((tech, index) => (
-                  <CarouselItem
-                    key={index}
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => {
-                      api?.scrollTo(index);
-                      setSlide(tecnologias[index]?.id ?? 1);
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
+              <Carousel
+                setApi={setApi}
+                className="w-full max-w-48 sm:max-w-xs md:max-w-sm lg:max-w-2xl"
+              >
+                <CarouselContent className="-ml-1">
+                  {tecnologias.map((tech, index) => (
+                    <CarouselItem
+                      key={index}
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => {
                         api?.scrollTo(index);
                         setSlide(tecnologias[index]?.id ?? 1);
-                      }
-                    }}
-                    className="carousel-item-btn basis-1/2 pl-1 lg:basis-1/3 cursor-pointer focus:outline-none"
-                  >
-                    <div className="p-1">
-                      <Card
-                        className={`bg-white shadow-md relative card-underline ${tecnologias[index]?.id === slide ? "active-card" : ""}`}
-                      >
-                        <CardContent className="flex aspect-square items-center justify-center p-6 ">
-                          <Image
-                            src={tech.icon}
-                            alt={tech.nome}
-                            width={80}
-                            height={80}
-                            className="object-contain"
-                          />
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          api?.scrollTo(index);
+                          setSlide(tecnologias[index]?.id ?? 1);
+                        }
+                      }}
+                      className="carousel-item-btn basis-1/2 pl-1 lg:basis-1/3 cursor-pointer focus:outline-none"
+                    >
+                      <div className="p-1">
+                        <Card
+                          className={`bg-white shadow-md relative card-underline ${tecnologias[index]?.id === slide ? "active-card" : ""}`}
+                        >
+                          <CardContent className="flex aspect-square items-center justify-center p-6 ">
+                            <Image
+                              src={tech.icon}
+                              alt={tech.nome}
+                              width={80}
+                              height={80}
+                              className="object-contain"
+                            />
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+            </motion.div>
           </div>
-        </section>
+        </motion.section>
       </div>
     </main>
   );

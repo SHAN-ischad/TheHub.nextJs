@@ -1,5 +1,6 @@
 "use client";
 
+import { handleLogin } from "@/src/actions/handlerLogin";
 import { Button } from "@/src/components/ui/button";
 import { ShaderGradientWrapper } from "@/src/components/ui/shader-gradient-Login-Page";
 import { EyeOff, LockKeyhole, Mail } from "lucide-react";
@@ -22,7 +23,23 @@ const callSans = Cal_Sans({
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const result = await handleLogin({ email, password });
+
+    if (result?.error) {
+      setError(result.error);
+      setLoading(false);
+    }
+  };
   return (
     <main className="w-screen h-screen relative">
       {/* ShaderGradient */}
@@ -61,21 +78,22 @@ export default function LoginPage() {
 
             {/* Form Content */}
             <form
-              action=""
-              method="Post"
+              onSubmit={handleSubmit}
               className="w-full flex justify-center items-center flex-col"
             >
               {/* Top Text */}
-              <h1 className={`${callSans.className} text-3xl mb-2`}>
+              <h1 className={`${callSans.className} text-3xl`}>
                 Faça seu login
               </h1>
-              <Separator className="bg-black opacity-10 " />
+              <Separator className="bg-black opacity-10" />
 
               {/* inputs */}
               <div className="mt-9 w-full gap-7.5 flex justify-center flex-col items-center">
                 <div className="w-full flex justify-center  flex-row-reverse items-center">
                   <Mail className=" relative bottom right-7.5" />
                   <input
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     type="email"
                     className="w-[50%] p-2.5 focus:outline-[3.5px] outline-purple-300 duration-200  border border-black rounded-r-md rounded-l-md  outline-0"
                     placeholder="Digite seu Email"
@@ -95,6 +113,8 @@ export default function LoginPage() {
                     )}
                   </button>
                   <input
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     type={showPassword ? "password" : "text"}
                     className="w-[50%] p-2.5 focus:outline-[3.5px]  outline-purple-300 duration-200  border border-black rounded-r-md rounded-l-md  outline-0 [&::-ms-reveal]:hidden [&::-webkit-credentials-auto-fill-button]:hidden"
                     placeholder="Digite sua senha"
@@ -103,8 +123,8 @@ export default function LoginPage() {
               </div>
 
               {/* Button */}
-              <div className="w-full flex justify-center mt-[30px]">
-                <Button className="w-[40%] p-[25px] rounded-2xl cursor-pointer hover:scale-102">
+              <div className="w-full flex justify-center mt-7.5">
+                <Button className="w-[40%] p-6.25 rounded-2xl cursor-pointer hover:scale-102">
                   <span className={`${callSans.className}`}>Login</span>
                 </Button>
               </div>
@@ -149,22 +169,22 @@ export default function LoginPage() {
 
             {/* Form Content */}
             <form
-              action=""
-              method="Post"
+              onSubmit={handleSubmit}
               className="w-full flex justify-center items-center flex-col"
             >
               {/* Top Text */}
-              <h1 className={`${callSans.className} text-3xl `}>
+              <h1 className={`${callSans.className} text-3xl`}>
                 Faça seu login
               </h1>
-
               {/* inputs */}
-              <div className="mt-15 ml-5.5  w-full  gap-7.5 flex justify-center flex-col items-center">
-                <div className="w-full flex justify-center  flex-row-reverse items-center">
-                  <Mail className=" relative bottom right-7.5" />
+              <div className="mt-15 ml-5.5 w-full gap-7.5 flex justify-center flex-col items-center">
+                <div className="w-full flex justify-center flex-row-reverse items-center">
+                  <Mail className="relative bottom right-7.5" />
                   <input
                     type="email"
-                    className="w-75 p-3 focus:outline-[3.5px] outline-purple-300 duration-200  border border-black rounded-2xl  outline-0"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-75 p-3 focus:outline-[3.5px] outline-purple-300 duration-200 border border-black rounded-2xl outline-0"
                     placeholder="Digite seu Email"
                   />
                 </div>
@@ -182,17 +202,23 @@ export default function LoginPage() {
                     )}
                   </button>
                   <input
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     type={showPassword ? "password" : "text"}
                     className="w-75 p-3 focus:outline-[3.5px]  outline-purple-300 duration-200  border border-black rounded-2xl  outline-0 [&::-ms-reveal]:hidden [&::-webkit-credentials-auto-fill-button]:hidden"
                     placeholder="Digite sua senha"
                   />
                 </div>
               </div>
-
               {/* Button */}
-              <div className="w-full flex justify-center mt-[30px]">
-                <Button className="w-[40%] p-6.25 rounded-2xl cursor-pointer hover:scale-102">
-                  <span className={`${callSans.className}`}>Login</span>
+              <div className="w-full flex justify-center mt-7.5">
+                <Button
+                  type="submit"
+                  className="w-[40%] p-6.25 rounded-2xl cursor-pointer hover:scale-102"
+                >
+                  <span className={`${callSans.className}`}>
+                    {loading ? "Carregando" : "Login"}
+                  </span>
                 </Button>
               </div>
             </form>

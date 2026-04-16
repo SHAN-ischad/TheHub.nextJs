@@ -15,12 +15,17 @@ datasource db {
 
 model Pessoa{
   Id String @id @default(cuid())
-  Nome String 
+  Nome String
   Idade Int
   DataNasc DateTime
   Telefone String @unique
   Cartoes Cartao[]
   User User?
+  Email String @unique
+  Password String @db.VarChar(255) // Para bcrypt hash
+
+  @@index([Email])
+  @@index([Telefone])
 }
 
 model User{
@@ -29,7 +34,7 @@ model User{
   Pessoa Pessoa @relation(fields: [PessoaId], references: [Id], onDelete: Cascade)
   Pagamentos Pagamentos[]
   Planos UserPlanos[]
-  
+
   @@index([PessoaId])
 }
 
@@ -38,7 +43,7 @@ model Cartao{
   Banco String
   PessoaId String
   Pessoa Pessoa @relation(fields: [PessoaId], references: [Id], onDelete: Cascade)
-  
+
   @@index([PessoaId])
 }
 
@@ -52,7 +57,7 @@ model Pagamentos{
   User User @relation(fields: [UserId], references: [Id], onDelete: Cascade)
   PlanoId String
   Plano Planos @relation(fields: [PlanoId], references: [Id], onDelete: Cascade)
-  
+
   @@index([UserId])
   @@index([PlanoId])
 }
@@ -72,7 +77,7 @@ model UserPlanos{
   Ativo Boolean @default(false)
   User User @relation(fields: [UserId], references: [Id], onDelete: Cascade)
   Plano Planos @relation(fields: [PlanoId], references: [Id], onDelete: Cascade)
-  
+
   @@id([UserId, PlanoId])
   @@index([PlanoId])
 }
